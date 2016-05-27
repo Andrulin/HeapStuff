@@ -1,11 +1,11 @@
 /*****************************************************
- * class ALHeap
+ * class ALMinHeap
  * Implements a min heap using an ArrayList as underlying container
  *****************************************************/
 
 import java.util.ArrayList;
 
-public class ALHeap {
+public class ALMinHeap {
 
     //instance vars
     private ArrayList<Integer> _heap; //underlying container is array of Integers
@@ -13,7 +13,7 @@ public class ALHeap {
     /*****************************************************
      * default constructor  ---  inits empty heap
      *****************************************************/
-    public ALHeap() 
+    public ALMinHeap() 
     { 
 	_heap = new ArrayList<Integer>();
     }
@@ -195,7 +195,7 @@ public class ALHeap {
     //main method for testing
     public static void main( String[] args ) {
 
-	ALHeap pile = new ALHeap();
+	ALMinHeap pile = new ALMinHeap();
 
 	pile.add(2);
 	System.out.println(pile);

@@ -20,7 +20,8 @@ public class RunMed {
      *****************************************************/
     public RunMed() 
     { 
-
+        leftHeap = new ALMinHeap();
+        rightHeap = new ALMaxHeap();
     }//O(1)
 
 
@@ -52,8 +53,8 @@ public class RunMed {
      *****************************************************/
     public boolean isEmpty() 
     {
-
-    }//O(?)
+        return (leftHeap.size() == 0 && rightHeap.size() == 0); 
+    }//O(1)
 
 
 

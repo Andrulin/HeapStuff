@@ -11,8 +11,8 @@
 public class RunMed {
 
     //instance vars
-    private ALMaxHeap leftHeap;  //for lower range of dataset
-    private ALMinHeap rightHeap; //for upper range of dataset
+    private ALMinHeap leftHeap;  //for lower range of dataset
+    private ALMaxHeap rightHeap; //for upper range of dataset
 
 
     /*****************************************************
@@ -20,7 +20,8 @@ public class RunMed {
      *****************************************************/
     public RunMed() 
     { 
-
+        leftHeap = new ALMinHeap();
+        rightHeap = new ALMaxHeap();
     }//O(1)
 
 
@@ -29,8 +30,16 @@ public class RunMed {
      * double getMedian()  ---  returns median of dataset
      *****************************************************/
     public double getMedian() 
-    {
-
+    {   
+        if (leftHeap.size() < rightHeap.size()) {
+            return rightHeap.peekMax();
+        }
+        else if (leftHeap.size() > rightHeap.size()) {
+            return leftHeap.peekMin();
+        }
+        else {
+            return (leftHeap.peekMin() + rightHeap.peekMax()) / 2;
+        }
     }//O(1)
 
 
@@ -42,7 +51,28 @@ public class RunMed {
      *****************************************************/
     public void insert( int addVal )
     {   
-     }//O(?)
+        if (isEmpty()) {
+            rightHeap.add(addVal);
+            return;
+        }
+        
+        if (addVal < rightHeap.peekMax()) {
+            rightHeap.add(addVal);
+        }
+        else if (addVal >= rightHeap.peekMax()) {
+            leftHeap.add(addVal);
+        }
+        
+        ///BALANCE HEAPS
+        if (rightHeap.size() - leftHeap.size() > 1) {
+            leftHeap.add(rightHeap.removeMax());
+        }
+        else if (leftHeap.size() - rightHeap.size() >1) {
+            rightHeap.add(leftHeap.removeMin());
+        }
+
+        
+     }//O(logn)
 
 
 
@@ -52,15 +82,15 @@ public class RunMed {
      *****************************************************/
     public boolean isEmpty() 
     {
-
-    }//O(?)
+        return (leftHeap.size() == 0 && rightHeap.size() == 0); 
+    }//O(1)
 
 
 
     //main method for testing
     public static void main( String[] args ) {
 
-	/*~~~V~~~~~~~~~~~~move~me~down~~~~~~~~~~~~~V~~~
+
         RunMed med = new RunMed();
         med.insert(1);
 	System.out.println( med.getMedian() ); //1
@@ -72,10 +102,9 @@ public class RunMed {
 	System.out.println( med.getMedian() ); //4
         med.insert(9);
 	System.out.println( med.getMedian() ); //5
+		/*~~~V~~~~~~~~~~~~move~me~down~~~~~~~~~~~~~V~~~
 	~~~~~|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|~~~*/
 
     }//end main()
 
 }//end class RunMed
-
-
